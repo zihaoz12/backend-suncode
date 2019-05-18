@@ -5,7 +5,7 @@ const bcrypt  = require('bcryptjs');
 const User = require('../models/user');
 
 
-
+//bring one user information
 router.get('/:id', async(req, res) => {
   try{
     const foundUser = await User.findById(req.params.id)
@@ -18,6 +18,8 @@ router.get('/:id', async(req, res) => {
   }
 })
 
+
+//edit user account
 router.put('/:id', async(req, res) => {
   try{
     const modifyProfile = {};
@@ -41,6 +43,7 @@ router.put('/:id', async(req, res) => {
   }
 })
 
+//delete user account 
 router.delete('/delete/:id', async(req, res) => {
   try{
     const deletedUser = await User.findByIdAndRemove(req.params.id);

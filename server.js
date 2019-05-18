@@ -30,10 +30,12 @@ app.use(cors(corsOptions));
 
 const authController = require('./controllers/authController');
 const userController = require('./controllers/userController');
+const houseController = require('./controllers/houseController');
 
 
 app.use('/api/v1/auth', authController);
 app.use('/api/v1/users', userController);
+app.use('/api/v1/house', houseController);
 
 
 app.listen(9000, () => {
