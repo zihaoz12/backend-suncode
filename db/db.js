@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const connectionString = 'mongodb://localhost/energy'
 
-mongoose.connect(connectionString, {
+mongoose.connect(process.env.MONGODB_URI || connectionString, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false

@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 
 
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: ['http://localhost:3000', 'http://localhost:3000', 'https://frontend-electricasa.herokuapp.com/'],
   credentials: true,
   optionsSuccessStatus:200
 }
@@ -38,6 +38,6 @@ app.use('/api/v1/users', userController);
 app.use('/api/v1/house', houseController);
 
 
-app.listen(9000, () => {
+app.listen(process.env.PORT || 9000, () => {
   console.log('I am working')
 })
