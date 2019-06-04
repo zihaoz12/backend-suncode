@@ -37,6 +37,7 @@ router.post('/', async(req, response) => {
 
   try{
     const createdHouse = await House.create(req.body);
+    console.log('what is req.session?', req.session);
     console.log('session id', req.session.userId);
     createdHouse.authorId = req.session.userId;
     createdHouse.authorname = req.session.username;
