@@ -1,3 +1,12 @@
+// const http = require('http');
+// const app = require('./app.js');
+//
+// const port = process.env.PORT || 3000;
+//
+// const server = http.createServer();
+//
+// server.listen(port);
+
 const express = require('express');
 const app     = express();
 const bodyParser = require('body-parser');
@@ -24,19 +33,23 @@ const corsOptions = {
 }
 
 app.use(cors(corsOptions));
-
-
+app.use('/public', express.static('public'));
+// app.use('/uploads', express.static('uploads'))
 //--------------------------
 
 
 const authController = require('./controllers/authController');
 const userController = require('./controllers/userController');
 const houseController = require('./controllers/houseController');
+// const photoController = require('./controllers/photoController');
+// const postController = require('./controllers/postController');
 
 
 app.use('/api/v1/auth', authController);
 app.use('/api/v1/users', userController);
 app.use('/api/v1/house', houseController);
+// app.use('/api/v1/photo', photoController);
+// app.use('/api/v1/post', postController);
 
 
 app.listen(process.env.PORT || 9000, () => {
