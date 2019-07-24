@@ -87,9 +87,10 @@ router.get('/:id', async(req, res) => {
 // });
 
 
-router.post('/', upload.array('productImage', 4), (req, res, next) => {
+router.post('/', upload.single('productImage'), (req, res, next) => {
   console.log('req.session ======>', req.session);
-  // console.log('----------------', req.files[0]);
+  const userId = req.session.userId
+  console.log('userid from session', userId);
   const product = new House({
     _id: new mongoose.Types.ObjectId(),
     street: req.body.street,
@@ -98,14 +99,15 @@ router.post('/', upload.array('productImage', 4), (req, res, next) => {
     zipcode: req.body.zipcode,
     year: req.body.year,
     sqft: req.body.sqft,
-    // productImage: req.file.path
-    productImage1: req.files[0].path,
-    productImage2: req.files[1].path,
-    productImage3: req.files[2].path,
-    productImage4: req.files[3].path,
-    // console.log(req.session)
+    productImage: req.file.path,
+    // productImage1: req.files[0].path,
+    // productImage2: req.files[1].path,
+    // productImage3: req.files[2].path,
+    // productImage4: req.files[3].path,
+    userId: userId
   });
 
+  console.log('what is product', product);
   product
     .save()
     .then(result => {
@@ -120,6 +122,7 @@ router.post('/', upload.array('productImage', 4), (req, res, next) => {
             zipcode: result.zipcode,
             year: result.year,
             sqft: result.sqft,
+            userId: "??",
             request: {
               type: 'GET',
               url: 'http://localhost:9000/api/v1/house/' +  result._id
@@ -128,7 +131,7 @@ router.post('/', upload.array('productImage', 4), (req, res, next) => {
       });
     })
     .catch(err => {
-      console.log(err);
+      console.log('error: post request fail');
       res.status(500).json({
         error: err
       })

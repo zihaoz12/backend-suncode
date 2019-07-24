@@ -11,7 +11,8 @@ const userSchema = new mongoose.Schema({
   },
   password: {type: String},
   name: {type: String},
-  // userId: {type: String},
+  // house: { type: mongoose.Schema.Types.ObjectId, ref: 'house'},
+  userId: {type: String}
 });
 
 

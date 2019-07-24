@@ -26,11 +26,13 @@ router.get('/:id', async(req, res) => {
 
 //create account
 router.post('/', async(req, res) => {
-  console.log('signup post request 1 :');
+  console.log('signup post request 1 :', req.body);
   const username = req.body.username;
   const email = req.body.email;
   const password = req.body.password;
+  console.log('how about here????');
   const hashedPassword = await bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+console.log('but not herer?');
   const name = req.body.name;
 
   const UserDbEntry = {};
@@ -109,6 +111,8 @@ router.post('/login', async(req, res) => {
     console.log('1?', req.body);
     // const foundUser = await User.findOne({username: req.body.username})
     const foundUser = await User.findOne({username: req.body.username})
+    // .catch((err) => console.log('caught it'));
+  console.log('foundUser', foundUser);
     // const foundUser = await User.findOne({email: req.body.email})
     console.log('2?', foundUser);
     if(foundUser){
@@ -154,8 +158,10 @@ router.post('/login', async(req, res) => {
 
 //logout get??
 router.get('/logout', (req, res) => {
+  console.log('hi?');
   req.session.destroy((err) => {
     if(err){
+      console.log('i am error?');
       res.send(err);
     }else{
       console.log('logout is successful');
