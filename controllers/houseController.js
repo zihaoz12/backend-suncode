@@ -89,6 +89,7 @@ router.get('/:id', async(req, res) => {
 
 router.post('/', upload.single('productImage'), (req, res, next) => {
   console.log('req.session ======>', req.session);
+  console.log('path?????', req.file);
   const userId = req.session.userId
   console.log('userid from session', userId);
   const product = new House({
