@@ -66,12 +66,8 @@
 // //
 // //   try{
 // //     const createdHouse = await House.create(req.body);
-// //     console.log('what is req.session? in house?', req.session);
-// //     console.log('session id in house?', req.session.userId);
 // //     createdHouse.authorId = req.session.userId;
 // //     createdHouse.authorname = req.session.username;
-// //     // console.log(`Created Report: ${createdReport}`);
-// //     // console.log('createdReport=>', typeof(createdReport));
 // //     console.log('createdHouse', createdHouse);
 // //     createdHouse.save((err, savedHouse) => {
 // //       response.json({
@@ -176,7 +172,6 @@ const router  = express.Router();
 //*************** photo ****************
 const mongoose = require('mongoose');
 const multer = require('multer');
-
 const path = require('path');
 
 // const storage = multer.diskStorage({
@@ -211,13 +206,15 @@ const storage = multer.diskStorage({
 });
 
 
+
 const upload = multer({
   storage: storage,
-  limits: {fileSize: 1000000}, // 1 MB
+  limits: {fileSize: 100000000}, // 1 MB
   fileFilter: function (req, file, cb) {
     checkFileType(file, cb)
   }
-}).single('pic1'); // name: 'picture' in form
+}).single('photo'); // name: 'picture' in form
+// }).array('photo', 2); // name: 'picture' in form
 
 
 function checkFileType(file, cb) { // checks file type,
@@ -225,7 +222,6 @@ function checkFileType(file, cb) { // checks file type,
   const filetypes = /jpeg|jpg|png|gif/;
 
   //check ext
-
   const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
 
   // check mime type
@@ -312,21 +308,31 @@ router.post('/', (req, res) => {
       res.json(err);
 
     } else {
+      // console.log('what is req.files? ===>', req.files);
       if (req.file == undefined) { // typeof req.file === 'undefined', check if there is actually an image uploaded
         console.log("udefined error")
 
         res.json(err);
       } else {
-        console.log("going here, success")
-        const createdPost = await House.create({ productImage: `uploads/${req.file}`});
+        // console.log("going here, success =====>", req.files)
+        const createdPost = await House.create({
+          productImage: `uploads/${req.file}`,
+          // productImage1: `uploads/${req.files[0]}`,
+        });
 
         createdPost.userId = req.session.userId;
+        createdPost.address = req.body.address;
+        createdPost.address2 = req.body.address2;
+        createdPost.state = req.body.state;
+        createdPost.zipcode = req.body.zipcode;
+        createdPost.year = req.body.year;
+        createdPost.sqft = req.body.sqft;
+        createdPost.memo = req.body.memo;
 
         createdPost.save((err, savedPost) => {
           res.json({
             msg: 'file uploaded',
             newPost: savedPost,
-
           });
 
 

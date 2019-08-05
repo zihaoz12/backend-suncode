@@ -53,13 +53,16 @@ const mongoose = require('mongoose');
 
 const houseSchema = mongoose.Schema({
   // _id: mongoose.Schema.Types.ObjectId,
-  street: String,
+  // street: String,
   address: { type : String },
+  address2: { type : String },
   state: {type: String},
   zipcode: {type: String},
   year: {type: String},
   sqft: {type: String},
-  productImage: { type: String, required: true },
+  memo: {type: String},
+  productImage: { type: String },
+  // productImage1: { type: String },
   // productImage1: { type: String, required: true },
   // productImage2: { type: String, required: true },
   // productImage3: { type: String, required: true },
