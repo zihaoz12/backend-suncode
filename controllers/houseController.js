@@ -259,7 +259,7 @@ router.get('/', async(req, res) => {
   }
 });
 
-//report show
+//one house
 router.get('/:id', async(req, res) => {
   try{
     const foundHouse = await House.findById(req.params.id)
@@ -321,7 +321,7 @@ router.post('/', (req, res) => {
           // productImage1: `uploads/${req.files[0]}`,
         });
 
-        createdPost.userId = req.session.userId;
+        // createdPost.userId = req.session.userId;
         createdPost.address = req.body.address;
         createdPost.address2 = req.body.address2;
         createdPost.state = req.body.state;
@@ -329,6 +329,7 @@ router.post('/', (req, res) => {
         createdPost.year = req.body.year;
         createdPost.sqft = req.body.sqft;
         createdPost.memo = req.body.memo;
+        createdPost.userId = req.body.userId
 
         createdPost.save((err, savedPost) => {
           res.json({

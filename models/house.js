@@ -53,11 +53,8 @@ const mongoose = require('mongoose');
 
 const houseSchema = mongoose.Schema({
   // _id: mongoose.Schema.Types.ObjectId,
-<<<<<<< HEAD
   // street: String,
-=======
   street: String,
->>>>>>> deba42dd3b814c54816c74dfa06b7c07cd7c8570
   address: { type : String },
   address2: { type : String },
   state: {type: String},

@@ -3,6 +3,33 @@ const router = express.Router();
 const bcrypt  = require('bcryptjs');
 
 const User = require('../models/user');
+const House  = require('../models/house');
+
+
+router.get('/allhouses', async(req, res) => {
+  console.log('0');
+    const allHouses = await House.find({});
+    res.json({
+      data : allHouses
+    })
+});
+
+
+//one house
+router.get('/house/:id', async(req, res) => {
+  console.log('what is req.params.id? ===>', req.params.id);
+  try{
+    const foundUser = await User.findById(req.params.id);
+    const foundHouse = await House.findOne({userId: req.params.id})
+    res.json({
+      status: 200,
+      data: foundHouse
+    })
+  }catch(err){
+    console.log('fail????');
+    res.send(err)
+  }
+});
 
 
 //bring one user information
@@ -17,7 +44,6 @@ router.get('/:id', async(req, res) => {
     res.send(err)
   }
 })
-
 
 //edit user account
 router.put('/:id', async(req, res) => {
@@ -43,7 +69,7 @@ router.put('/:id', async(req, res) => {
   }
 })
 
-//delete user account 
+//delete user account
 router.delete('/delete/:id', async(req, res) => {
   try{
     const deletedUser = await User.findByIdAndRemove(req.params.id);
@@ -55,9 +81,6 @@ router.delete('/delete/:id', async(req, res) => {
     res.send(err)
   }
 })
-
-
-
 
 
 module.exports = router
