@@ -64,8 +64,7 @@ const houseSchema = mongoose.Schema({
   memo: {type: String},
   productImage: { type: String },
   // productImage1: { type: String },
-  // productImage1: { type: String, required: true },
-  // productImage2: { type: String, required: true },
+  // productImage2: { type: String },
   // productImage3: { type: String, required: true },
   // productImage4: { type: String, required: true },
   userId: {type: String}
