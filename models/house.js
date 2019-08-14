@@ -67,7 +67,8 @@ const houseSchema = mongoose.Schema({
   // productImage2: { type: String },
   // productImage3: { type: String, required: true },
   // productImage4: { type: String, required: true },
-  userId: {type: String}
+  userId: {type: String},
+  postingTime: {type: String}
 });
 
 module.exports = mongoose.model('House', houseSchema)

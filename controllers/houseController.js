@@ -164,7 +164,8 @@ router.post('/', (req, res) => {
         createdPost.year = req.body.year;
         createdPost.sqft = req.body.sqft;
         createdPost.memo = req.body.memo;
-        createdPost.userId = req.body.userId
+        createdPost.userId = req.body.userId;
+        createdPost.postingTime = req.body.postingTime;
 
         createdPost.save((err, savedPost) => {
           res.json({
