@@ -172,69 +172,12 @@ router.post('/', (req, res) => {
             msg: 'file uploaded',
             newPost: savedPost,
           });
-
-
         });
-
       }
     }
   });
 });
 
-
-
-// router.post('/', upload.single('productImage'), (req, res, next) => {
-//   console.log('req.session ======>', req.session);
-//   console.log('path?????', "test", req.body.file);
-//   const userId = req.session.userId
-//   console.log('userid from session', userId);
-//   const product = new House({
-//     _id: new mongoose.Types.ObjectId(),
-//     street: req.body.street,
-//     address: req.body.address,
-//     state: req.body.state,
-//     zipcode: req.body.zipcode,
-//     year: req.body.year,
-//     sqft: req.body.sqft,
-//     productImage: ,
-//     // productImage1: req.files[0].path,
-//     // productImage2: req.files[1].path,
-//     // productImage3: req.files[2].path,
-//     // productImage4: req.files[3].path,
-//     userId: userId
-//   });
-
-//   console.log('what is product', product);
-//   product
-//     .save()
-//     .then(result => {
-//       console.log('what is result?', result);
-//       res.status(201).json({
-//         message: 'handle post route',
-//         createdProduct: {
-//             _id: result._id,
-//             street: result.street,
-//             address: result.address,
-//             state: result.state,
-//             zipcode: result.zipcode,
-//             year: result.year,
-//             sqft: result.sqft,
-//             userId: "??",
-//             request: {
-//               type: 'GET',
-//               url: 'http://localhost:9000/api/v1/house/' +  result._id
-//             }
-//         }
-//       });
-//     })
-//     .catch(err => {
-//       console.log('error: post request fail');
-//       res.status(500).json({
-//         error: err
-//       })
-//     });
-
-// })
 
 
 //house edit
