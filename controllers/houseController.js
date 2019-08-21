@@ -3,41 +3,14 @@ const router  = express.Router();
 //*************** photo ****************
 const mongoose = require('mongoose');
 const multer = require('multer');
-
 const path = require('path');
-
-// const storage = multer.diskStorage({
-//   destination: function(req, file, cb){
-//     cb(null, './public/uploads/');
-//   },
-//   filename: function(req, file, cb){
-//     cb(null, new Date().toISOString() + path.extname(file.originalname))
-//   }
-// })
-// const fileFilter = (req, file, cb) => {
-//   if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png'){
-//     cb(null, true)
-//   }else {
-//     cb(null, false);
-//   }
-// }
-// const upload = multer({
-//   storage: storage,
-//   limits: {
-//     fileSize: 1024 * 1024 * 5
-//   },
-//   fileFilter: fileFilter
-// });
-
-
 const storage = multer.diskStorage({
   destination: './public/uploads/',
   filename: function (req, file, cb) {
+    console.log('what is file??', file);
     cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
   }
 });
-
-
 
 const upload = multer({
   storage: storage,
@@ -45,8 +18,8 @@ const upload = multer({
   fileFilter: function (req, file, cb) {
     checkFileType(file, cb)
   }
-}).single('photo'); // name: 'picture' in form
-// }).array('photo', 2); // name: 'picture' in form
+// }).single('photo'); // name: 'picture' in form
+}).array('photo', 4); // name: 'picture' in form
 
 
 function checkFileType(file, cb) { // checks file type,
@@ -139,18 +112,20 @@ router.post('/', (req, res) => {
         res.json(err);
     }else{
       // console.log('what is req.files? ===>', req.files);
-      if(req.file == undefined){ // typeof req.file === 'undefined', check if there is actually an image uploaded
-        console.log("udefined error")
-        res.json(err);
-      }else{
-        console.log('>>>>', req.file);
-        // console.log("going here, success =====>", req.files)
+      // if(req.file == undefined){ // typeof req.file === 'undefined', check if there is actually an image uploaded
+      //   console.log("udefined error")
+      //   res.json(err);
+      // }else{
+        // console.log('>>>>', req.file);
+        console.log("going here, success???? =====>", req.files[0])
         const createdPost = await House.create({
-          productImage: `public/uploads/${req.file.filename}`,
+          // productImage: `public/uploads/${req.file.filename}`,
 
           // array?
-          // productImage1: `public/uploads/${req.files[0]}`,
-          // productImage2: `public/uploads/${req.files[1]}`
+          productImage1: `public/uploads/${req.files[0].filename}`,
+          productImage2: `public/uploads/${req.files[1].filename}`,
+          productImage3: `public/uploads/${req.files[2].filename}`,
+          productImage4: `public/uploads/${req.files[3].filename}`
 
           // productImage1: `public/uploads/${req.file.filename}`,
           // productImage2: `public/uploads/${req.file.filename}`,
@@ -167,13 +142,14 @@ router.post('/', (req, res) => {
         createdPost.userId = req.body.userId;
         createdPost.postingTime = req.body.postingTime;
 
+        console.log('2222');
         createdPost.save((err, savedPost) => {
           res.json({
             msg: 'file uploaded',
             newPost: savedPost,
           });
         });
-      }
+      // }
     }
   });
 });
@@ -183,6 +159,8 @@ router.post('/', (req, res) => {
 //house edit
 router.put('/:id', async(req, res) => {
   try{
+    console.log('req.params.id/put function ===> ',req.params.id);
+    console.log('req.params.id/put function ===> ',req.body);
     const updatedHouse = await House.findByIdAndUpdate(req.params.id, req.body, {new: true});
     res.json({
       status: 200,
@@ -379,3 +357,27 @@ module.exports = router
 //
 //
 // module.exports = router
+
+
+// const storage = multer.diskStorage({
+//   destination: function(req, file, cb){
+//     cb(null, './public/uploads/');
+//   },
+//   filename: function(req, file, cb){
+//     cb(null, new Date().toISOString() + path.extname(file.originalname))
+//   }
+// })
+// const fileFilter = (req, file, cb) => {
+//   if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png'){
+//     cb(null, true)
+//   }else {
+//     cb(null, false);
+//   }
+// }
+// const upload = multer({
+//   storage: storage,
+//   limits: {
+//     fileSize: 1024 * 1024 * 5
+//   },
+//   fileFilter: fileFilter
+// });
