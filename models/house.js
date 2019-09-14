@@ -68,6 +68,7 @@ const houseSchema = mongoose.Schema({
   productImage3: { type: String, required: true },
   productImage4: { type: String, required: true },
   userId: {type: String},
+  username: {type: String},
   postingTime: {type: String},
   attic: {type: String},
   whyear: {type: String},

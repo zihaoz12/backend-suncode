@@ -140,6 +140,7 @@ router.post('/', (req, res) => {
         createdPost.sqft = req.body.sqft;
         createdPost.memo = req.body.memo;
         createdPost.userId = req.body.userId;
+        createdPost.username = req.body.username;
         createdPost.postingTime = req.body.postingTime;
 
         console.log('2222');
